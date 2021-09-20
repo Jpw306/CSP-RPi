@@ -24,7 +24,7 @@ def buttonEvent(channel):
 
 def loop():
     #Button detect
-    GPIO.add_event_detact(buttonPin, GPIO.FALLING, callback = buttonEvent, bouncetime = 300)
+    GPIO.add_event_detect(buttonPin, GPIO.FALLING, callback = buttonEvent, bouncetime = 300)
     while True:
         pass
 
