@@ -37,3 +37,23 @@ def loop():
         r=random.randint(0, 100)
         g=random.randint(0, 100)
         b=random.randint(0, 100)
+        #Set random as a duty cycle value
+        setColor(r, g, b)
+        print("r = %d, g = %d, b = %d" %(r, g, b))
+        time.sleep(1)
+
+def destroy():
+    pwmRed.stop()
+    pwmGreen.stop()
+    pwmBlue.stop()
+    GPIO.cleanup()
+
+#Program entrance
+if __name__ == "__main__":
+    print("Program is starting...")
+    setup()
+    try:
+        loop()
+    #Press ctrl-c to end the program
+    except KeyboardInterrupt:
+        destroy()
