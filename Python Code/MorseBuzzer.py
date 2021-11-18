@@ -8,8 +8,9 @@ morseCharacters = [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", ".."
                    "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..", ".----",
                    "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----.", "-----", ""]
 
+global p
+
 def setup():
-    global p
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(buzzerPin, GPIO.OUT)
     p = GPIO.PWM(buzzerPin, 1)
@@ -34,21 +35,26 @@ def translate(string):
 
 def beep(string):
     for character in string:
-        GPIO.output(buzzerPin, GPIO.HIGH)
+        print(character)
         if character == ".":
+            GPIO.output(buzzerPin, GPIO.HIGH)
             time.sleep(0.1)
+            GPIO.output(buzzerPin, GPIO.LOW)
         elif character == "-":
+            GPIO.output(buzzerPin, GPIO.HIGH)
             time.sleep(0.3)
+            GPIO.output(buzzerPin, GPIO.LOW)
         else:
             time.sleep(0.4)
-        GPIO.output(buzzerPin, GPIO.LOW)
         time.sleep(0.3)
         
 def main():
     setup()
+    userInput = input("Enter English text por favor:\n")
+    translatedText = translate(userInput)
     try:
-        userInput = input("Enter English text por favor:\n")
-        translatedText = translate(userInput)
         beep(translatedText)
-    except KeyboardInterrupt:
+    except KeyboardInterrupt():
         destroy()
+    
+main()
